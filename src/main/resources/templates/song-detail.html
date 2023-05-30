@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Song</title>
+</head>
+<body>
+<div class="row">
+<h1>Song</h1>
+</div>
+<div th:if="${errorMessage}" th:text="${errorMessage}" class="error-message"></div>
+<form th:object="${song}" th:action="@{save/{id}(id=${song.id})}"
+th:method="${id} < 0 ? POST : PUT">
+Id: <input type="number" name="id" th:value="${song.id}" readonly="readonly" disabled="disabled"> <br /> 
+Name: <input type="text" name="name" th:value="${song.name}" required="required"><br /> 
+Author: <input type="text" name="author" th:value="${song.author}" required="required"><br />
+Published: <input type="checkbox" name="published" th:checked="${song.published}" ><br />
+Ngày sản xuất: <input type="date" name="ngaySX" th:value="${song.Ngaysx}" required="required"><br /> 
+<input type="submit" value="Save Book">
+</form>
+</body>
+</html>
