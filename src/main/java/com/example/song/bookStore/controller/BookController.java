@@ -57,35 +57,6 @@ public class BookController {
 			}
 			return Books;
 		}
-//		@GetMapping("/Books/search/{searchTerm}")
-//		public List<Book> searchBook(Model model, @PathVariable String searchTerm) throws IOException {
-//			Connection connection = null;
-//			PreparedStatement ps = null;
-//			ResultSet resultSet = null;
-//			List<Book> Books = new ArrayList<>();
-//			try {
-//				Class.forName("com.mysql.cj.jdbc.Driver");
-//				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbc_demo", "root", "11102002");
-//				ps = connection.prepareStatement("SELECT * FROM jdbc_demo.Book WHERE name LIKE ? OR brand LIKE ?; ");
-//				ps.setString(1,"%"+searchTerm+"%");
-//				ps.setString(2,"%"+searchTerm+"%");
-//				resultSet=ps.executeQuery();
-//				while (resultSet.next()) {
-//					String id = resultSet.getString("id");
-//					String name = resultSet.getString("name");
-//					int price = resultSet.getInt("price");
-//					String brand = resultSet.getString("brand");
-//					int sold = resultSet.getInt("sold");
-//					Date Ngaysx = resultSet.getDate("ngaySX");
-//					Books.add(new Book(id, name, price, brand, sold == 0 ? false : true, Ngaysx));
-//				}
-//
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			return Books;
-//		}
-//
 		@GetMapping("/books/{id}")
 		public Book getBook(Model model, @PathVariable int id) {
 			model.addAttribute("id", id);

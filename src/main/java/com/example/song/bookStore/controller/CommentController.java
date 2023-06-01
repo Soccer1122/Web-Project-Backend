@@ -56,6 +56,38 @@ public class CommentController {
 		}
 		return comments;
 	}
+	@GetMapping("/comments")
+	public List<Comment> getComments(Model model) {
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet result = null;
+		List<Comment> comments = new ArrayList<>();
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/book_store", "root", "11102002");
+			ps = connection.prepareStatement("select * from comment ");
+			result = ps.executeQuery();
+			while (result.next()) {
+				int id = result.getInt("id");
+				String content = result.getString("content");
+				int authorid = result.getInt("authorid");
+				PreparedStatement ps2 = connection.prepareStatement("select name from user where id = ?");
+				ps2.setInt(1, authorid);
+				ResultSet result2 = ps2.executeQuery();
+				String author=null;
+				while(result2.next())
+				author= result2.getString("name");
+				int rating = result.getInt("rating");
+				int bookid=result.getInt("bookid");
+				comments.add(new Comment(id, content, author, rating, bookid));
+			}
+			connection.close();
+		} // End of try block
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return comments;
+	}
 	@PostMapping("/addComment/{authorid}")
 	public void addToComment(@RequestBody Comment comment, @PathVariable int authorid) {
 		String content=comment.getContent();
