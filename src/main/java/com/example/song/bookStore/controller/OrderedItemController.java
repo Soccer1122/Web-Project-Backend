@@ -30,9 +30,9 @@ public class OrderedItemController {
 		List<OrderedItem> OrderedItems = new ArrayList<>();
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/book_store", "root", "11102002");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/book_store", "root", "11102002" );
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery("select * from ordereditem ");
+			resultSet = statement.executeQuery("select * from ordereditem ORDER BY id DESC");
 			while (resultSet.next()) {
 				int id = resultSet.getInt("id");
 				int idBook = resultSet.getInt("idBook");

@@ -36,7 +36,7 @@ public class OrderController {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/book_store", "root", "11102002");
-			ps = connection.prepareStatement("select id,name,address,city,ward,typeOfAddress,total,status from orders where idUser = ?");
+			ps = connection.prepareStatement("select id,name,address,city,ward,typeOfAddress,total,status from orders where idUser = ? ORDER BY id DESC");
 			ps.setInt(1, userid);
 			result = ps.executeQuery();
 			while (result.next()) {

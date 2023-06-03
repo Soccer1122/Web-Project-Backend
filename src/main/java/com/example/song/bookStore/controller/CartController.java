@@ -34,7 +34,7 @@ public class CartController {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/book_store", "root", "11102002");
-			ps = connection.prepareStatement("select id,bookid,quantity from cart where userid = ?");
+			ps = connection.prepareStatement("select id,bookid,quantity from cart where userid = ? ORDER BY id DESC");
 			ps.setInt(1, userid);
 			result = ps.executeQuery();
 			while (result.next()) {
