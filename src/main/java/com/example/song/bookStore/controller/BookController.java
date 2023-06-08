@@ -270,7 +270,11 @@ public class BookController {
 				ps = connection.prepareStatement("delete from cart where bookid= ?");
 				ps.setInt(1, id);
 				result = ps.executeUpdate();
-			
+				
+
+				ps = connection.prepareStatement("delete from comment where bookid= ?");
+				ps.setInt(1, id);
+				result = ps.executeUpdate();
 				List <Integer> idOrder = new ArrayList<>();
 				List <Integer> quantity = new ArrayList<>();
 				ps = connection.prepareStatement("select idOrder,quantity from ordereditem where idBook=?");

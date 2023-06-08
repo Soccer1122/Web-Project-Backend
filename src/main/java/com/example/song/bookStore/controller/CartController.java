@@ -78,15 +78,16 @@ public class CartController {
 	    int quantity = cart.getQuantity();	    	
 	    int userid = cart.getUserid();
 	    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/book_store", "root", "11102002")) {	
-	    	try(PreparedStatement selectStatement1 = connection.prepareStatement("SELECT quantity FROM cart WHERE userid = ? and bookid= ? ")){
+	    	try(PreparedStatement selectStatement1 = connection.prepareStatement("SELECT id,quantity FROM cart WHERE userid = ? and bookid= ? ")){
 	    		selectStatement1.setInt(1,userid);
 	    		selectStatement1.setInt(2, id);
 	    		try (ResultSet resultSet = selectStatement1.executeQuery()) {
                     if (resultSet.next()) {
+                    	int idcart= resultSet.getInt("id");
                     	int quantityold = resultSet.getInt("quantity");
-                    	try (PreparedStatement insertStatement = connection.prepareStatement("UPDATE cart SET quantity=? WHERE userid=?")) {
+                    	try (PreparedStatement insertStatement = connection.prepareStatement("UPDATE cart SET quantity=? WHERE id=?")) {
             	            insertStatement.setInt(1, quantity+quantityold);
-            	            insertStatement.setInt(2, userid);
+            	            insertStatement.setInt(2, idcart);
             	            int rowsInserted = insertStatement.executeUpdate();
             	            // Kiểm tra số hàng bị ảnh hưởng bởi truy vấn INSERT
             	            }

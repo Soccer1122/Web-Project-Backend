@@ -6,6 +6,7 @@ public class Comment {
 	private String author;
 	private int rating;
 	private int bookid;
+	private String date;
 	public Comment() {
 		// TODO Auto-generated constructor stub
 	}
@@ -39,13 +40,21 @@ public class Comment {
 	public void setBookid(int bookid) {
 		this.bookid = bookid;
 	}
-	public Comment(int id, String content, String author, int rating, int bookid) {
+	
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public Comment(int id, String content, String author, int rating, int bookid,String date) {
 		super();
 		this.id = id;
 		this.content = content;
 		this.author = author;
 		this.rating = rating;
 		this.bookid = bookid;
+		this.date = date;
 	}
 	
 }

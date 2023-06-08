@@ -47,7 +47,8 @@ public class CommentController {
 				author= result2.getString("name");
 				int rating = result.getInt("rating");
 				int bookid=result.getInt("bookid");
-				comments.add(new Comment(id, content, author, rating, bookid));
+				String date = result.getString("date");
+				comments.add(new Comment(id, content, author, rating, bookid,date));
 			}
 			connection.close();
 		} // End of try block
@@ -79,7 +80,8 @@ public class CommentController {
 				author= result2.getString("name");
 				int rating = result.getInt("rating");
 				int bookid=result.getInt("bookid");
-				comments.add(new Comment(id, content, author, rating, bookid));
+				String date = result.getString("date");
+				comments.add(new Comment(id, content, author, rating, bookid,date));
 			}
 			connection.close();
 		} // End of try block
@@ -92,15 +94,17 @@ public class CommentController {
 	public void addToComment(@RequestBody Comment comment, @PathVariable int authorid) {
 		String content=comment.getContent();
 		int rating = comment.getRating();
-	    int id = comment.getBookid();    	
+	    int id = comment.getBookid(); 
+	    String date=comment.getDate();
 	    System.out.println(content);
 	    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/book_store", "root", "11102002")) {
 	        // Thêm thông tin giỏ hàng vào cơ sở dữ liệu
-	        try (PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO comment(content,authorid,rating,bookid)  VALUES (?, ?, ?,?)")) {
+	        try (PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO comment(content,authorid,rating,bookid,date)  VALUES (?, ?, ?,?,?)")) {
 	            insertStatement.setString(1,content );
 	            insertStatement.setInt(2, authorid);
 	            insertStatement.setInt(3, rating);
 	            insertStatement.setInt(4, id);
+	            insertStatement.setString(5,date );
 	            int rowsInserted = insertStatement.executeUpdate();
 	        }
 	        System.out.println("thành công");
